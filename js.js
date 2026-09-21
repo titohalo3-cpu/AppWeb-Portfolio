@@ -2,7 +2,7 @@ document.documentElement.classList.add('js');
 
 /* ===== Horas semanales =====
    Fecha desde la que se suman las horas semanales.
-   Cada lunes se añaden las horas de data-weekly de cada tecnología. */
+   Cada semana se añaden las horas de data-weekly de cada tecnología. */
 const FECHA_INICIO = new Date('2026-09-21T00:00:00');
 const SEMANA_MS = 7 * 24 * 60 * 60 * 1000;
 const semanas = Math.max(0, Math.floor((Date.now() - FECHA_INICIO) / SEMANA_MS));
@@ -18,30 +18,28 @@ const EN = {
   tagline: 'Microcomputer Systems and Networks technician and Web Application Development student. I design interfaces and build what runs behind them.',
   service_title: 'Vocational degrees',
   service_sub: '4,000 h of official training',
+  pop_daw: 'Higher Degree · 2024 - Present',
+  pop_smr: 'Intermediate Degree · 2022 - 2024',
   github_btn: 'View my GitHub',
   about_title: 'About me',
   about_p1: "I'm Pablo and I'm studying the Higher Vocational Degree in Web Application Development in Madrid. I got into IT through the Intermediate Degree in Microcomputer Systems and Networks, where I learned how computers, networks and operating systems work on the inside.",
-  about_p2: 'What drew me to web development was wanting to be on the other side of the screen: designing clear, easy to use interfaces, and programming the features that make a web application respond to what each user needs, from a well validated form to the logic running on the server.',
-  about_p3: "I've spent 8 months in an internship developing and maintaining web applications in a real work environment. I'm currently going deeper into PHP and JavaScript and working with frameworks such as Angular and Bootstrap. I'm responsible, organised and I enjoy working as part of a team.",
+  about_p2: 'What drew me to web development was web design and the features you can build with JavaScript: designing clear, easy to use interfaces, and programming the features that make a web application respond to what each user needs, from a well validated form to the logic running on the server.',
+  about_p3: "I've been developing and practising web applications for 3 years. I'm currently going deeper into PHP and JavaScript and working with frameworks such as Angular and Bootstrap. I'm responsible, organised and I enjoy working as part of a team.",
   exp_title: 'Experience',
-  exp_note: '8 months',
-  exp_cap: 'Internship',
-  exp_role: 'Web Application Development internship',
-  exp_desc: 'Development and maintenance of web applications with HTML, CSS, JavaScript and Java, applying what I learned in the degree to real projects.',
-  exp_date: 'Feb 2026 - Present',
+  exp_note: '3 months',
+  exp_desc: 'Building and maintaining websites with WordPress, preparing reports and solving incidents, working as part of a team.',
   status_now: 'In progress',
   status_done: 'Completed',
   edu_title: 'Education',
   edu_note: '2 vocational degrees',
+  edu_hours: '2,000 h',
   edu_daw_level: 'HIGHER DEGREE',
   edu_daw: 'Web Application Development',
   edu_daw_desc: 'Programming, databases, client and server side development, interface design and application deployment.',
-  edu_daw_hours: '2,000 h',
   edu_daw_date: '2024 - Present',
   edu_smr_level: 'INTERMEDIATE',
   edu_smr: 'Microcomputer Systems and Networks',
   edu_smr_desc: 'IES El Cañaveral. Hardware assembly and maintenance, operating systems, local networks, network services and IT security.',
-  edu_smr_hours: '2,000 h',
   tech_title: 'Languages and technologies',
   tech_note: 'Hours based on degree modules',
   cap_markup: 'MARKUP',
@@ -67,17 +65,12 @@ const EN = {
   lvl_int: 'Intermediate',
   lvl_learn: 'Learning',
   proj_title: 'Projects',
-  proj_note: '2 projects',
-  p2_title: 'Project name',
-  p2_desc: 'Web application with user registration and a MySQL database.',
-  p3_title: 'Project name',
-  p3_desc: 'Java application using object oriented programming.',
-  see_project: 'View project',
-  see_code: 'View code',
+  proj_note: 'Coming soon',
+  proj_empty: "I'm preparing new projects to show here.",
+  proj_link: 'In the meantime, you can check my GitHub',
   now_title: 'Currently learning',
   and: 'and',
   badges_title: 'Badges',
-  b_office: 'Microsoft Office',
   b_sec: 'Basic cybersecurity',
   b_team: 'Teamwork',
   b_org: 'Organisation',
@@ -102,30 +95,56 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 });
 
 let idioma = 'es';
+let tema = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 
+/* ===== Horas ===== */
 function pintarHoras() {
   const locale = idioma === 'es' ? 'es-ES' : 'en-GB';
-  let totalSemanal = 0;
 
   document.querySelectorAll('.lang').forEach(entry => {
     const base = Number(entry.dataset.base) || 0;
     const semanal = Number(entry.dataset.weekly) || 0;
     const total = base + semanal * semanas;
-    totalSemanal += semanal;
 
     entry.querySelector('.hours').textContent =
       total.toLocaleString(locale) + (idioma === 'es' ? ' h registradas' : ' h logged');
 
-    entry.querySelector('.weekly').textContent = semanal > 0
-      ? '+' + semanal + (idioma === 'es' ? ' h por semana' : ' h per week')
-      : (idioma === 'es' ? 'Completado en el ciclo' : 'Completed in the degree');
+    let estado;
+    if (semanal > 0) {
+      estado = '+' + semanal + (idioma === 'es' ? ' h por semana' : ' h per week');
+    } else {
+      estado = idioma === 'es' ? entry.dataset.statusEs : entry.dataset.statusEn;
+    }
+    entry.querySelector('.weekly').textContent = estado || '';
   });
-
-  document.getElementById('weeklyNote').textContent = idioma === 'es'
-    ? totalSemanal + ' h de estudio a la semana'
-    : totalSemanal + ' h of study per week';
 }
 
+/* ===== Modo claro / oscuro ===== */
+function pintarTema() {
+  const label = document.getElementById('themeLabel');
+  const boton = document.getElementById('themeToggle');
+  let texto;
+  if (tema === 'light') {
+    texto = idioma === 'es' ? 'Modo oscuro' : 'Dark mode';
+  } else {
+    texto = idioma === 'es' ? 'Modo claro' : 'Light mode';
+  }
+  label.textContent = texto;
+  boton.setAttribute('aria-label', texto);
+}
+
+function cambiarTema(nuevo) {
+  tema = nuevo;
+  document.documentElement.dataset.theme = tema;
+  pintarTema();
+  try { localStorage.setItem('portfolio-tema', tema); } catch (e) {}
+}
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+  cambiarTema(tema === 'light' ? 'dark' : 'light');
+});
+
+/* ===== Idioma ===== */
 function cambiarIdioma(nuevo) {
   idioma = nuevo;
   const dic = idioma === 'es' ? ES : EN;
@@ -136,11 +155,12 @@ function cambiarIdioma(nuevo) {
   });
 
   document.documentElement.lang = idioma;
-  const boton = document.getElementById('langToggle');
   document.getElementById('langLabel').textContent = idioma === 'es' ? 'English' : 'Español';
-  boton.setAttribute('aria-label', idioma === 'es' ? 'Translate to English' : 'Traducir al español');
+  document.getElementById('langToggle').setAttribute('aria-label',
+    idioma === 'es' ? 'Translate to English' : 'Traducir al español');
 
   pintarHoras();
+  pintarTema();
 
   try { localStorage.setItem('portfolio-idioma', idioma); } catch (e) {}
 }
@@ -149,10 +169,35 @@ document.getElementById('langToggle').addEventListener('click', () => {
   cambiarIdioma(idioma === 'es' ? 'en' : 'es');
 });
 
-/* Idioma guardado */
 let guardado = null;
 try { guardado = localStorage.getItem('portfolio-idioma'); } catch (e) {}
 cambiarIdioma(guardado === 'en' ? 'en' : 'es');
+
+/* ===== Desplegable de ciclos formativos ===== */
+const cyclesBtn = document.getElementById('cyclesBtn');
+const cyclesPop = document.getElementById('cyclesPop');
+
+function abrirCiclos(abrir) {
+  cyclesPop.classList.toggle('open', abrir);
+  cyclesBtn.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+}
+
+cyclesBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  abrirCiclos(!cyclesPop.classList.contains('open'));
+});
+
+cyclesPop.addEventListener('click', e => {
+  if (e.target.closest('a')) abrirCiclos(false);
+});
+
+document.addEventListener('click', e => {
+  if (!cyclesPop.contains(e.target) && e.target !== cyclesBtn) abrirCiclos(false);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') abrirCiclos(false);
+});
 
 /* ===== Aparición de bloques al hacer scroll ===== */
 const bloques = document.querySelectorAll('.reveal');

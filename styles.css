@@ -1,439 +1,218 @@
-:root{
-  --bg-page:#1b2838;
-  --bar:#171a21;
-  --panel:rgba(0,0,0,.22);
-  --panel-head:#2b3a4d;
-  --row:rgba(103,193,245,.06);
-  --line:rgba(103,193,245,.12);
-  --text:#c6d4df;
-  --text-dim:#8f98a0;
-  --accent:#66c0f4;
-  --live:#a3cf06;
-  --radius:3px;
+document.documentElement.classList.add('js');
+
+/* ===== Horas semanales =====
+   Fecha desde la que se suman las horas semanales.
+   Cada semana se añaden las horas de data-weekly de cada tecnología. */
+const FECHA_INICIO = new Date('2026-09-21T00:00:00');
+const SEMANA_MS = 7 * 24 * 60 * 60 * 1000;
+const semanas = Math.max(0, Math.floor((Date.now() - FECHA_INICIO) / SEMANA_MS));
+
+/* ===== Textos en inglés ===== */
+const EN = {
+  nav_about: 'About me',
+  nav_edu: 'Education',
+  nav_tech: 'Skills',
+  nav_projects: 'Projects',
+  nav_contact: 'Contact',
+  handle: 'Web application developer · Madrid, Spain',
+  tagline: 'Microcomputer Systems and Networks technician and Web Application Development student. I design interfaces and build what runs behind them.',
+  service_title: 'Vocational degrees',
+  service_sub: '4,000 h of official training',
+  pop_daw: 'Higher Degree · 2024 - Present',
+  pop_smr: 'Intermediate Degree · 2022 - 2024',
+  github_btn: 'View my GitHub',
+  about_title: 'About me',
+  about_p1: "I'm Pablo and I'm studying the Higher Vocational Degree in Web Application Development in Madrid. I got into IT through the Intermediate Degree in Microcomputer Systems and Networks, where I learned how computers, networks and operating systems work on the inside.",
+  about_p2: 'What drew me to web development was web design and the features you can build with JavaScript: designing clear, easy to use interfaces, and programming the features that make a web application respond to what each user needs, from a well validated form to the logic running on the server.',
+  about_p3: "I've been developing and practising web applications for 3 years. I'm currently going deeper into PHP and JavaScript and working with frameworks such as Angular and Bootstrap. I'm responsible, organised and I enjoy working as part of a team.",
+  exp_title: 'Experience',
+  exp_note: '3 months',
+  exp_desc: 'Building and maintaining websites with WordPress, preparing reports and solving incidents, working as part of a team.',
+  status_now: 'In progress',
+  status_done: 'Completed',
+  edu_title: 'Education',
+  edu_note: '2 vocational degrees',
+  edu_hours: '2,000 h',
+  edu_daw_level: 'HIGHER DEGREE',
+  edu_daw: 'Web Application Development',
+  edu_daw_desc: 'Programming, databases, client and server side development, interface design and application deployment.',
+  edu_daw_date: '2024 - Present',
+  edu_smr_level: 'INTERMEDIATE',
+  edu_smr: 'Microcomputer Systems and Networks',
+  edu_smr_desc: 'IES El Cañaveral. Hardware assembly and maintenance, operating systems, local networks, network services and IT security.',
+  tech_title: 'Languages and technologies',
+  tech_note: 'Hours based on degree modules',
+  cap_markup: 'MARKUP',
+  cap_styles: 'STYLES',
+  cap_client: 'CLIENT',
+  cap_backend: 'BACKEND',
+  cap_server: 'SERVER',
+  html_desc: 'Semantic structure, forms, accessibility and web standards.',
+  html_mod: 'Module: Markup languages and information management systems',
+  css_desc: 'Flexbox, Grid, responsive design, animations and variables.',
+  css_mod: 'Module: Web interface design',
+  js_desc: 'DOM manipulation, events, form validation and asynchronous requests.',
+  js_mod: 'Module: Client side web development',
+  java_desc: 'Object oriented programming, collections, exceptions and database connections.',
+  java_mod: 'Module: Programming',
+  php_desc: 'Applications with MySQL, sessions, forms and CRUD operations.',
+  php_mod: 'Module: Server side web development',
+  ng_title: 'Angular, Bootstrap and frameworks',
+  ng_desc: 'Components, routing and services in Angular; fast responsive layouts with Bootstrap.',
+  ng_mod: 'Currently studying',
+  mastery: 'Skill level',
+  lvl_adv: 'Advanced',
+  lvl_int: 'Intermediate',
+  lvl_learn: 'Learning',
+  proj_title: 'Projects',
+  proj_note: 'Coming soon',
+  proj_empty: "I'm preparing new projects to show here.",
+  proj_link: 'In the meantime, you can check my GitHub',
+  now_title: 'Currently learning',
+  and: 'and',
+  badges_title: 'Badges',
+  b_sec: 'Basic cybersecurity',
+  b_team: 'Teamwork',
+  b_org: 'Organisation',
+  contact_title: 'Contact',
+  c_mail: 'Email',
+  c_phone: 'Phone',
+  c_cv: 'Download CV',
+  langs_title: 'Languages',
+  l_es: 'Spanish',
+  l_es_lvl: 'Native',
+  l_en: 'English',
+  l_en_lvl: 'Intermediate',
+  loc_title: 'Location',
+  loc_sub: 'On site, hybrid or remote',
+  footer: 'Designed by'
+};
+
+/* Guarda los textos originales en español */
+const ES = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  ES[el.dataset.i18n] = el.innerHTML;
+});
+
+let idioma = 'es';
+let tema = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+
+/* ===== Horas ===== */
+function pintarHoras() {
+  const locale = idioma === 'es' ? 'es-ES' : 'en-GB';
+
+  document.querySelectorAll('.lang').forEach(entry => {
+    const base = Number(entry.dataset.base) || 0;
+    const semanal = Number(entry.dataset.weekly) || 0;
+    const total = base + semanal * semanas;
+
+    entry.querySelector('.hours').textContent =
+      total.toLocaleString(locale) + (idioma === 'es' ? ' h registradas' : ' h logged');
+
+    let estado;
+    if (semanal > 0) {
+      estado = '+' + semanal + (idioma === 'es' ? ' h por semana' : ' h per week');
+    } else {
+      estado = idioma === 'es' ? entry.dataset.statusEs : entry.dataset.statusEn;
+    }
+    entry.querySelector('.weekly').textContent = estado || '';
+  });
 }
 
-*{box-sizing:border-box;}
-
-html{
-  scroll-behavior:smooth;
-  scroll-padding-top:20px;
+/* ===== Modo claro / oscuro ===== */
+function pintarTema() {
+  const label = document.getElementById('themeLabel');
+  const boton = document.getElementById('themeToggle');
+  let texto;
+  if (tema === 'light') {
+    texto = idioma === 'es' ? 'Modo oscuro' : 'Dark mode';
+  } else {
+    texto = idioma === 'es' ? 'Modo claro' : 'Light mode';
+  }
+  label.textContent = texto;
+  boton.setAttribute('aria-label', texto);
 }
 
-body{
-  margin:0;
-  background:var(--bg-page);
-  color:var(--text);
-  font-family:"Barlow","Motiva Sans",Arial,Helvetica,sans-serif;
-  font-size:15px;
-  line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+function cambiarTema(nuevo) {
+  tema = nuevo;
+  document.documentElement.dataset.theme = tema;
+  pintarTema();
+  try { localStorage.setItem('portfolio-tema', tema); } catch (e) {}
 }
 
-.backdrop{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  background:
-    radial-gradient(760px 620px at 6% 24%, rgba(86,140,178,.20), transparent 62%),
-    radial-gradient(760px 620px at 94% 24%, rgba(86,140,178,.20), transparent 62%),
-    linear-gradient(180deg,#1f3448 0%,#1b2838 42%,#161e2a 100%);
-}
-.backdrop::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,rgba(20,26,36,0) 0%,rgba(20,26,36,.92) 22%,rgba(20,26,36,.92) 78%,rgba(20,26,36,0) 100%);
+document.getElementById('themeToggle').addEventListener('click', () => {
+  cambiarTema(tema === 'light' ? 'dark' : 'light');
+});
+
+/* ===== Idioma ===== */
+function cambiarIdioma(nuevo) {
+  idioma = nuevo;
+  const dic = idioma === 'es' ? ES : EN;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const texto = dic[el.dataset.i18n];
+    if (texto !== undefined) el.innerHTML = texto;
+  });
+
+  document.documentElement.lang = idioma;
+  document.getElementById('langLabel').textContent = idioma === 'es' ? 'English' : 'Español';
+  document.getElementById('langToggle').setAttribute('aria-label',
+    idioma === 'es' ? 'Translate to English' : 'Traducir al español');
+
+  pintarHoras();
+  pintarTema();
+
+  try { localStorage.setItem('portfolio-idioma', idioma); } catch (e) {}
 }
 
-.page{position:relative;z-index:1;}
+document.getElementById('langToggle').addEventListener('click', () => {
+  cambiarIdioma(idioma === 'es' ? 'en' : 'es');
+});
 
-a{color:var(--accent);text-decoration:none;}
-a:hover{color:#fff;}
-a:focus-visible,button:focus-visible{
-  outline:2px solid var(--accent);
-  outline-offset:2px;
-}
+let guardado = null;
+try { guardado = localStorage.getItem('portfolio-idioma'); } catch (e) {}
+cambiarIdioma(guardado === 'en' ? 'en' : 'es');
 
-/* Barra superior */
-.topbar{
-  background:var(--bar);
-  border-bottom:1px solid rgba(0,0,0,.4);
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.topbar-inner{
-  max-width:1000px;
-  margin:0 auto;
-  padding:12px 18px;
-  display:flex;
-  align-items:center;
-  gap:24px;
-}
-.wordmark{
-  font-family:"Barlow Condensed",Arial,sans-serif;
-  font-size:22px;
-  letter-spacing:.14em;
-  color:#dfe3e6;
-  font-weight:600;
-  flex:none;
-}
-.wordmark span{color:var(--accent);}
-.topnav{
-  display:flex;
-  gap:20px;
-  font-size:14px;
-  letter-spacing:.04em;
-  overflow-x:auto;
-  scrollbar-width:none;
-}
-.topnav::-webkit-scrollbar{display:none;}
-.topnav a{color:#b8c3cd;white-space:nowrap;}
-.topnav a:hover{color:#fff;}
+/* ===== Desplegable de ciclos formativos ===== */
+const cyclesBtn = document.getElementById('cyclesBtn');
+const cyclesPop = document.getElementById('cyclesPop');
 
-.lang-toggle{
-  margin-left:auto;
-  flex:none;
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:6px 12px;
-  background:rgba(103,193,245,.12);
-  border:1px solid rgba(103,193,245,.3);
-  border-radius:var(--radius);
-  color:#d6e6f2;
-  font:inherit;
-  font-size:13.5px;
-  cursor:pointer;
-  transition:background .2s,border-color .2s;
-}
-.lang-toggle:hover{background:rgba(103,193,245,.24);border-color:var(--accent);}
-.lang-toggle svg{width:16px;height:16px;fill:currentColor;}
-
-.shell{
-  max-width:1000px;
-  margin:0 auto;
-  padding:30px 18px 50px;
+function abrirCiclos(abrir) {
+  cyclesPop.classList.toggle('open', abrir);
+  cyclesBtn.setAttribute('aria-expanded', abrir ? 'true' : 'false');
 }
 
-/* Cabecera */
-.profile-head{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 300px;
-  gap:34px;
-  align-items:start;
-  margin-bottom:28px;
-}
-.display-name{
-  margin:0 0 4px;
-  font-size:clamp(28px,5vw,40px);
-  font-weight:500;
-  line-height:1.1;
-  color:#f0f4f7;
-}
-.handle{color:var(--text-dim);font-size:14.5px;margin:0 0 14px;}
-.tagline{margin:0;max-width:52ch;color:#aebcc7;font-size:16px;}
+cyclesBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  abrirCiclos(!cyclesPop.classList.contains('open'));
+});
 
-.service-box{
-  display:flex;gap:12px;align-items:center;
-  background:var(--panel);
-  border:1px solid var(--line);
-  padding:12px;
-  border-radius:var(--radius);
-  margin-bottom:14px;
-}
-.service-num{
-  width:36px;height:36px;flex:none;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,#3c5a75,#25374a);
-  border:1px solid #4d6c88;
-  color:#dce8f1;
-  font-size:16px;
-}
-.service-text{font-size:13px;line-height:1.35;}
-.service-text strong{display:block;font-weight:500;color:#dce8f1;font-size:14px;}
-.service-text span{color:var(--text-dim);}
+cyclesPop.addEventListener('click', e => {
+  if (e.target.closest('a')) abrirCiclos(false);
+});
 
-.btn-github{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  padding:9px 16px;
-  border-radius:var(--radius);
-  background:linear-gradient(180deg,#67c1f5,#417a9b);
-  color:#fff;
-  font-size:15px;
-  transition:filter .2s;
-}
-.btn-github:hover{color:#fff;filter:brightness(1.15);}
-.btn-github svg{width:17px;height:17px;fill:currentColor;flex:none;}
+document.addEventListener('click', e => {
+  if (!cyclesPop.contains(e.target) && e.target !== cyclesBtn) abrirCiclos(false);
+});
 
-/* Rejilla */
-.columns{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 300px;
-  gap:34px;
-  align-items:start;
-}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') abrirCiclos(false);
+});
 
-.panel{margin-bottom:26px;}
-.panel-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  flex-wrap:wrap;
-  gap:6px 14px;
-  background:var(--panel-head);
-  padding:9px 14px;
-  border-radius:var(--radius) var(--radius) 0 0;
-}
-.panel-head h2{margin:0;font-size:17px;font-weight:500;color:#e6eef4;}
-.panel-note{font-size:13px;color:#9fb4c6;}
-.panel-body{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-top:0;
-  padding:16px 14px;
-  border-radius:0 0 var(--radius) var(--radius);
-}
-.panel-body > p{margin:0 0 12px;max-width:68ch;}
-.panel-body > p:last-child{margin-bottom:0;}
+/* ===== Aparición de bloques al hacer scroll ===== */
+const bloques = document.querySelectorAll('.reveal');
 
-/* Filas */
-.entry{
-  background:var(--row);
-  border:1px solid var(--line);
-  padding:12px;
-  margin-bottom:12px;
-  border-radius:var(--radius);
-  transition:background .25s,border-color .25s;
-}
-.entry:last-child{margin-bottom:0;}
-.entry-top{display:flex;gap:14px;align-items:flex-start;}
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-.capsule{
-  width:150px;
-  min-height:66px;
-  flex:none;
-  border-radius:2px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:6px 12px;
-  font-family:"Barlow Condensed",Arial,sans-serif;
-  letter-spacing:.05em;
-  color:#fff;
-  font-size:23px;
-  line-height:1.05;
-  transition:background .25s,color .25s,box-shadow .25s;
-}
-.capsule small{
-  display:block;
-  font-family:"Barlow",Arial,sans-serif;
-  font-size:11px;
-  letter-spacing:.14em;
-  opacity:.85;
-  font-weight:500;
-}
-.cap-exp{background:linear-gradient(135deg,#2f6f8f,#1a3f53);}
-.cap-daw{background:linear-gradient(135deg,#3e6fa8,#1f3a5f);}
-.cap-smr{background:linear-gradient(135deg,#4c7a5a,#26432f);}
-.cap-proj-2{background:linear-gradient(135deg,#4a7a48,#25432a);}
-.cap-proj-3{background:linear-gradient(135deg,#6b4a86,#38254a);}
-
-/* Lenguajes: color propio y hover con contraste invertido */
-.lang .capsule{background:var(--c);color:var(--fg,#fff);}
-.lang-html{--c:#e44d26;--hover-text:#c73a15;}
-.lang-css {--c:#2965f1;--hover-text:#1f55d1;}
-.lang-js  {--c:#f0db4f;--fg:#1b1b1b;--hover-text:#8a7400;}
-.lang-java{--c:#b07219;--hover-text:#8c5710;}
-.lang-php {--c:#777bb4;--hover-text:#4f5b93;}
-.lang-ng  {--c:#dd0031;--hover-text:#c3002f;}
-
-.lang:hover,.lang:focus-within{
-  border-color:var(--c);
-  background:rgba(255,255,255,.05);
-}
-.lang:hover .capsule,.lang:focus-within .capsule{
-  background:#fff;
-  color:var(--hover-text);
-  box-shadow:0 0 0 2px var(--c);
-}
-.lang:hover .bar i{background:var(--c);}
-
-.entry-meta{flex:1;min-width:0;display:flex;justify-content:space-between;gap:14px;}
-.entry-meta h3{margin:0 0 4px;font-size:17px;font-weight:500;color:#e3ecf3;}
-.entry-meta p{margin:0;font-size:13.5px;color:#9fadb9;max-width:54ch;}
-.entry-meta p.module{margin-top:5px;font-size:12.5px;color:#7f97aa;}
-.entry-side{text-align:right;font-size:13px;color:#90a0ad;flex:none;}
-.live{color:var(--live);}
-
-.progress{
-  margin-top:12px;
-  background:rgba(0,0,0,.25);
-  border:1px solid rgba(103,193,245,.1);
-  padding:10px 12px;
-  border-radius:2px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.progress-label{font-size:13px;color:#a9b7c2;}
-.bar{
-  flex:1;
-  min-width:100px;
-  height:9px;
-  background:rgba(0,0,0,.45);
-  border-radius:9px;
-  overflow:hidden;
-}
-.bar i{
-  display:block;
-  height:100%;
-  background:linear-gradient(90deg,#4c8bb5,#8ed0f5);
-  border-radius:9px;
-  transition:background .25s;
-}
-
-.entry-foot{
-  margin-top:10px;
-  display:flex;
-  gap:18px;
-  flex-wrap:wrap;
-  font-size:13.5px;
-}
-
-/* Columna derecha */
-.side-block{
-  background:var(--panel);
-  border:1px solid var(--line);
-  padding:14px;
-  border-radius:var(--radius);
-  margin-bottom:18px;
-}
-.now h3{margin:0 0 3px;font-size:17px;font-weight:500;color:var(--live);}
-.now p{margin:0;font-size:15px;color:#c3d0da;}
-
-.side-title{
-  margin:0 0 12px;
-  font-size:16px;
-  font-weight:500;
-  color:#dfe8ef;
-  display:flex;
-  align-items:baseline;
-  gap:9px;
-}
-.side-title em{font-style:normal;font-size:21px;color:#9fb0bd;}
-
-/* Insignias */
-.badges{display:flex;flex-wrap:wrap;gap:9px;}
-.badge{
-  position:relative;
-  overflow:hidden;
-  padding:7px 11px;
-  border:1px solid transparent;
-  border-radius:2px;
-  font-size:12.5px;
-  cursor:default;
-  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,color .22s ease;
-}
-.badge::after{
-  content:"";
-  position:absolute;
-  top:0;left:-60%;
-  width:40%;height:100%;
-  background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);
-  transform:skewX(-20deg);
-}
-.badge:hover{
-  transform:translateY(-3px) scale(1.05);
-  color:#fff;
-}
-.badge:hover::after{left:130%;transition:left .6s ease;}
-
-/* Tecnologías: azul */
-.badge-tech{
-  background:linear-gradient(180deg,#2f4f72,#1d3149);
-  border-color:rgba(102,192,244,.35);
-  color:#d4e8f7;
-}
-.badge-tech:hover{
-  border-color:#66c0f4;
-  box-shadow:0 6px 14px rgba(0,0,0,.35),0 0 10px rgba(102,192,244,.45);
-}
-
-/* Habilidades: verde */
-.badge-skill{
-  background:linear-gradient(180deg,#3d5a2a,#26391a);
-  border-color:rgba(163,207,6,.35);
-  color:#dcecc4;
-}
-.badge-skill:hover{
-  border-color:#a3cf06;
-  box-shadow:0 6px 14px rgba(0,0,0,.35),0 0 10px rgba(163,207,6,.45);
-}
-
-.contact-list,.info-list{list-style:none;margin:0;padding:0;}
-.contact-list li,.info-list li{border-bottom:1px solid rgba(103,193,245,.08);}
-.contact-list li:last-child,.info-list li:last-child{border-bottom:0;}
-.contact-list a{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding:11px 2px;
-  color:#c3d2dd;
-}
-.contact-list a .k{font-size:16px;color:inherit;}
-.contact-list a span:last-child{font-size:13px;color:var(--text-dim);text-align:right;word-break:break-all;}
-.contact-list a:hover{color:#fff;}
-.contact-list a:hover span:last-child{color:#a9c4d6;}
-.info-list li{display:flex;justify-content:space-between;padding:9px 2px;font-size:14.5px;}
-.info-list li span:last-child{color:var(--text-dim);font-size:13px;}
-.loc{margin:0;font-size:14.5px;color:#c3d0da;}
-.loc span{color:var(--text-dim);font-size:13px;}
-
-.foot{
-  margin-top:30px;
-  padding-top:16px;
-  border-top:1px solid rgba(103,193,245,.1);
-  font-size:13px;
-  color:#7f8c97;
-  text-align:center;
-}
-.foot p{margin:2px 0;}
-
-/* Aparición al hacer scroll */
-.js .reveal{
-  opacity:0;
-  transform:translateY(16px);
-  transition:opacity .55s ease,transform .55s ease;
-}
-.js .reveal.is-visible{opacity:1;transform:none;}
-
-/* Tablet */
-@media (max-width:880px){
-  .profile-head,.columns{grid-template-columns:minmax(0,1fr);gap:22px;}
-  .wordmark{display:none;}
-}
-
-/* Móvil */
-@media (max-width:600px){
-  .topbar-inner{gap:14px;padding:10px 14px;}
-  .shell{padding:22px 14px 40px;}
-  .entry-top{flex-direction:column;}
-  .capsule{width:100%;min-height:54px;}
-  .entry-meta{flex-direction:column;gap:8px;}
-  .entry-side{text-align:left;}
-  .lang-toggle span{display:none;}
-}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto;}
-  .js .reveal{transform:none;transition:opacity .2s;}
-  .badge,.badge::after{transition:none !important;}
-  .badge:hover{transform:none;}
+  bloques.forEach(b => observer.observe(b));
+} else {
+  bloques.forEach(b => b.classList.add('is-visible'));
 }
