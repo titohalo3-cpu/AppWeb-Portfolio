@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="js.js">
 </head>
 <body>
 <div class="backdrop" aria-hidden="true"></div>
@@ -41,6 +40,8 @@
         <p class="handle" data-i18n="handle">Desarrollador de aplicaciones web · Madrid, España</p>
         <p class="tagline" data-i18n="tagline">Técnico en Sistemas Microinformáticos y Redes y estudiante de Desarrollo de Aplicaciones Web. Diseño interfaces y construyo lo que hay detrás de ellas.</p>
       </div>
+
+      <div class="level-col">
         <div class="service-box">
           <div class="service-num">2</div>
           <div class="service-text">
@@ -49,7 +50,7 @@
           </div>
         </div>
         <a class="btn-github" href="https://github.com/titohalo3-cpu" target="_blank" rel="noopener">
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.540 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.690-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
           <span data-i18n="github_btn">Ver mi GitHub</span>
         </a>
       </div>
@@ -284,30 +285,13 @@
         <section class="panel reveal" id="proyectos">
           <div class="panel-head">
             <h2 data-i18n="proj_title">Proyectos</h2>
-            <span class="panel-note" data-i18n="proj_note">3 proyectos</span>
+            <span class="panel-note" data-i18n="proj_note">2 proyectos</span>
           </div>
           <div class="panel-body">
 
             <article class="entry">
               <div class="entry-top">
-                <div class="capsule cap-proj-1">Portfolio<small>WEB</small></div>
-                <div class="entry-meta">
-                  <div>
-                    <h3 data-i18n="p1_title">Portfolio personal</h3>
-                    <p data-i18n="p1_desc">Esta misma web: diseño inspirado en los perfiles de Steam, responsive, con traducción al inglés y horas que se actualizan cada semana.</p>
-                  </div>
-                  <div class="entry-side">HTML · CSS · JS</div>
-                </div>
-              </div>
-              <div class="entry-foot">
-                <a href="https://titohalo3-cpu.github.io/AppWeb-Portfolio/" target="_blank" rel="noopener" data-i18n="see_project">Ver proyecto</a>
-                <a href="https://github.com/titohalo3-cpu/AppWeb-Portfolio" target="_blank" rel="noopener" data-i18n="see_code">Ver código</a>
-              </div>
-            </article>
-
-            <article class="entry">
-              <div class="entry-top">
-                <div class="capsule cap-proj-2">Proyecto 02<small>APP</small></div>
+                <div class="capsule cap-proj-2">Proyecto 01<small>APP</small></div>
                 <div class="entry-meta">
                   <div>
                     <h3 data-i18n="p2_title">Nombre del proyecto</h3>
@@ -324,7 +308,7 @@
 
             <article class="entry">
               <div class="entry-top">
-                <div class="capsule cap-proj-3">Proyecto 03<small>JAVA</small></div>
+                <div class="capsule cap-proj-3">Proyecto 02<small>JAVA</small></div>
                 <div class="entry-meta">
                   <div>
                     <h3 data-i18n="p3_title">Nombre del proyecto</h3>
@@ -352,16 +336,18 @@
         </div>
 
         <div class="side-block reveal">
-          <h4 class="side-title"><span data-i18n="badges_title">Insignias</span> <em>8</em></h4>
+          <h4 class="side-title"><span data-i18n="badges_title">Insignias</span> <em>10</em></h4>
           <div class="badges">
-            <span class="badge">Angular</span>
-            <span class="badge">Bootstrap</span>
-            <span class="badge">Git</span>
-            <span class="badge">MySQL</span>
-            <span class="badge" data-i18n="b_office">Paquete Office</span>
-            <span class="badge" data-i18n="b_sec">Ciberseguridad básica</span>
-            <span class="badge" data-i18n="b_team">Trabajo en equipo</span>
-            <span class="badge" data-i18n="b_org">Organización</span>
+            <span class="badge badge-tech">Angular</span>
+            <span class="badge badge-tech">PHP</span>
+            <span class="badge badge-tech">Java</span>
+            <span class="badge badge-tech">MySQL</span>
+            <span class="badge badge-tech">Bootstrap</span>
+            <span class="badge badge-tech">Git</span>
+            <span class="badge badge-skill" data-i18n="b_sec">Ciberseguridad básica</span>
+            <span class="badge badge-skill" data-i18n="b_office">Paquete Office</span>
+            <span class="badge badge-skill" data-i18n="b_team">Trabajo en equipo</span>
+            <span class="badge badge-skill" data-i18n="b_org">Organización</span>
           </div>
         </div>
 

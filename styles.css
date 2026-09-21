@@ -136,15 +136,6 @@ a:focus-visible,button:focus-visible{
 .handle{color:var(--text-dim);font-size:14.5px;margin:0 0 14px;}
 .tagline{margin:0;max-width:52ch;color:#aebcc7;font-size:16px;}
 
-.level-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.level-label{font-size:20px;color:#cbd6df;}
-.level-badge{
-  width:34px;height:34px;
-  border-radius:50%;
-  border:2px solid #6c8ca5;
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;color:#e3ecf2;
-}
 .service-box{
   display:flex;gap:12px;align-items:center;
   background:var(--panel);
@@ -249,7 +240,6 @@ a:focus-visible,button:focus-visible{
 .cap-exp{background:linear-gradient(135deg,#2f6f8f,#1a3f53);}
 .cap-daw{background:linear-gradient(135deg,#3e6fa8,#1f3a5f);}
 .cap-smr{background:linear-gradient(135deg,#4c7a5a,#26432f);}
-.cap-proj-1{background:linear-gradient(135deg,#31708f,#1c4457);}
 .cap-proj-2{background:linear-gradient(135deg,#4a7a48,#25432a);}
 .cap-proj-3{background:linear-gradient(135deg,#6b4a86,#38254a);}
 
@@ -338,16 +328,15 @@ a:focus-visible,button:focus-visible{
 }
 .side-title em{font-style:normal;font-size:21px;color:#9fb0bd;}
 
+/* Insignias */
 .badges{display:flex;flex-wrap:wrap;gap:9px;}
 .badge{
   position:relative;
   overflow:hidden;
   padding:7px 11px;
-  background:linear-gradient(180deg,#2f4761,#1f2e3e);
-  border:1px solid rgba(103,193,245,.16);
+  border:1px solid transparent;
   border-radius:2px;
   font-size:12.5px;
-  color:#c9d9e5;
   cursor:default;
   transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,color .22s ease;
 }
@@ -357,16 +346,35 @@ a:focus-visible,button:focus-visible{
   top:0;left:-60%;
   width:40%;height:100%;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);
-  opacity: 17%;
   transform:skewX(-20deg);
 }
 .badge:hover{
   transform:translateY(-3px) scale(1.05);
-  border-color:var(--accent);
-  color:rgb(5, 168, 197);
-  box-shadow:0 6px 14px rgba(0,0,0,.35),0 0 10px rgba(102,192,244,.35);
+  color:#fff;
 }
 .badge:hover::after{left:130%;transition:left .6s ease;}
+
+/* Tecnologías: azul */
+.badge-tech{
+  background:linear-gradient(180deg,#2f4f72,#1d3149);
+  border-color:rgba(102,192,244,.35);
+  color:#d4e8f7;
+}
+.badge-tech:hover{
+  border-color:#66c0f4;
+  box-shadow:0 6px 14px rgba(0,0,0,.35),0 0 10px rgba(102,192,244,.45);
+}
+
+/* Habilidades: verde */
+.badge-skill{
+  background:linear-gradient(180deg,#3d5a2a,#26391a);
+  border-color:rgba(163,207,6,.35);
+  color:#dcecc4;
+}
+.badge-skill:hover{
+  border-color:#a3cf06;
+  box-shadow:0 6px 14px rgba(0,0,0,.35),0 0 10px rgba(163,207,6,.45);
+}
 
 .contact-list,.info-list{list-style:none;margin:0;padding:0;}
 .contact-list li,.info-list li{border-bottom:1px solid rgba(103,193,245,.08);}

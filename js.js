@@ -16,7 +16,6 @@ const EN = {
   nav_contact: 'Contact',
   handle: 'Web application developer · Madrid, Spain',
   tagline: 'Microcomputer Systems and Networks technician and Web Application Development student. I design interfaces and build what runs behind them.',
-  level: 'Level',
   service_title: 'Vocational degrees',
   service_sub: '4,000 h of official training',
   github_btn: 'View my GitHub',
@@ -68,9 +67,7 @@ const EN = {
   lvl_int: 'Intermediate',
   lvl_learn: 'Learning',
   proj_title: 'Projects',
-  proj_note: '3 projects',
-  p1_title: 'Personal portfolio',
-  p1_desc: 'This website: design inspired by Steam profiles, responsive, with English translation and hours that update every week.',
+  proj_note: '2 projects',
   p2_title: 'Project name',
   p2_desc: 'Web application with user registration and a MySQL database.',
   p3_title: 'Project name',
@@ -151,9 +148,6 @@ function cambiarIdioma(nuevo) {
 document.getElementById('langToggle').addEventListener('click', () => {
   cambiarIdioma(idioma === 'es' ? 'en' : 'es');
 });
-
-/* Nivel = años desde que empezó la formación (2022) */
-document.getElementById('levelBadge').textContent = Math.max(1, new Date().getFullYear() - 2022);
 
 /* Idioma guardado */
 let guardado = null;
