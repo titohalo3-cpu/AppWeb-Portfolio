@@ -592,3 +592,4 @@ a:focus-visible,button:focus-visible{
   .js .reveal{transform:none;transition:opacity .2s;}
   .badge,.badge::after{transition:none !important;}
   .badge:hover{transform:none;}
+}
