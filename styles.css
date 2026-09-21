@@ -357,12 +357,13 @@ a:focus-visible,button:focus-visible{
   top:0;left:-60%;
   width:40%;height:100%;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);
+  opacity: 17%;
   transform:skewX(-20deg);
 }
 .badge:hover{
   transform:translateY(-3px) scale(1.05);
   border-color:var(--accent);
-  color:#fff;
+  color:rgb(5, 168, 197);
   box-shadow:0 6px 14px rgba(0,0,0,.35),0 0 10px rgba(102,192,244,.35);
 }
 .badge:hover::after{left:130%;transition:left .6s ease;}
