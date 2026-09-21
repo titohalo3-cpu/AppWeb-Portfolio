@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="wordmark">PORT<span>FOLIO</span></div>
+      <nav class="topnav" aria-label="Secciones">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#estudios">Estudios</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+
+    <section class="profile-head">
+      <div class="identity">
+        <div class="avatar">
+          <div class="avatar-inner">NA</div>
+        </div>
+        <div>
+          <h1 class="display-name">Nombre Apellido</h1>
+          <p class="handle">Desarrollo web · Madrid, España</p>
+          <p class="tagline">Estudio desarrollo web y me muevo entre el front y el back: maqueto con HTML y CSS, y monto la lógica con Java y PHP.</p>
+        </div>
+      </div>
+
+      <div class="level-col">
+        <div class="level-row">
+          <span class="level-label">Nivel</span>
+          <span class="level-badge">8</span>
+        </div>
+        <div class="service-box">
+          <div class="service-num">2</div>
+          <div class="service-text">
+            <strong>Años programando</strong>
+            <span>1.240 horas de práctica</span>
+          </div>
+        </div>
+        <a class="btn-github" href="https://github.com/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          Ver mi GitHub
+        </a>
+      </div>
+    </section>
+
+    <div class="columns">
+
+      <div>
+
+        <section class="panel" id="sobre-mi">
+          <div class="panel-head">
+            <h2>Sobre mí</h2>
+            <span class="panel-note">Disponible para prácticas</span>
+          </div>
+          <div class="panel-body">
+            <p>Soy estudiante de desarrollo web y llevo un par de años construyendo proyectos por mi cuenta, desde páginas estáticas hasta aplicaciones con base de datos.</p>
+            <p>Me interesa sobre todo la parte donde se juntan el diseño y la lógica: que una interfaz se entienda a la primera y que por detrás el código esté ordenado. Aprendo rápido, pregunto cuando hace falta y termino lo que empiezo.</p>
+            <p>Ahora busco unas prácticas o un primer puesto junior donde poder trabajar en equipo y pelearme con código real.</p>
+          </div>
+        </section>
+
+        <section class="panel" id="estudios">
+          <div class="panel-head">
+            <h2>Estudios y tecnologías</h2>
+            <span class="panel-note">4 lenguajes registrados</span>
+          </div>
+          <div class="panel-body">
+
+            <article class="entry">
+              <div class="entry-top">
+                <div class="capsule cap-html">HTML5<small>MARCADO</small></div>
+                <div class="entry-meta">
+                  <div>
+                    <h3>HTML</h3>
+                    <p>Estructura semántica, formularios, accesibilidad básica y buenas prácticas de etiquetado.</p>
+                  </div>
+                  <div class="entry-side">
+                    380 h registradas<br>
+                    <span class="live">En uso diario</span>
+                  </div>
+                </div>
+              </div>
+              <div class="progress">
+                <span class="progress-label">Nivel de dominio</span>
+                <span class="bar"><i style="width:90%"></i></span>
+                <span class="progress-label">Avanzado</span>
+              </div>
+            </article>
+
+            <article class="entry">
+              <div class="entry-top">
+                <div class="capsule cap-css">CSS3<small>ESTILOS</small></div>
+                <div class="entry-meta">
+                  <div>
+                    <h3>CSS</h3>
+                    <p>Flexbox, Grid, diseño responsive, animaciones y variables para mantener el estilo ordenado.</p>
+                  </div>
+                  <div class="entry-side">
+                    340 h registradas<br>
+                    <span class="live">En uso diario</span>
+                  </div>
+                </div>
+              </div>
+              <div class="progress">
+                <span class="progress-label">Nivel de dominio</span>
+                <span class="bar"><i style="width:85%"></i></span>
+                <span class="progress-label">Avanzado</span>
+              </div>
+            </article>
+
+            <article class="entry">
+              <div class="entry-top">
+                <div class="capsule cap-java">JAVA<small>BACKEND</small></div>
+                <div class="entry-meta">
+                  <div>
+                    <h3>Java</h3>
+                    <p>Programación orientada a objetos, colecciones, manejo de errores y conexión con bases de datos.</p>
+                  </div>
+                  <div class="entry-side">
+                    300 h registradas<br>
+                    última sesión: esta semana
+                  </div>
+                </div>
+              </div>
+              <div class="progress">
+                <span class="progress-label">Nivel de dominio</span>
+                <span class="bar"><i style="width:70%"></i></span>
+                <span class="progress-label">Intermedio</span>
+              </div>
+            </article>
+
+            <article class="entry">
+              <div class="entry-top">
+                <div class="capsule cap-php">PHP<small>SERVIDOR</small></div>
+                <div class="entry-meta">
+                  <div>
+                    <h3>PHP</h3>
+                    <p>Aplicaciones con MySQL, sesiones, formularios y operaciones CRUD sobre servidor.</p>
+                  </div>
+                  <div class="entry-side">
+                    220 h registradas<br>
+                    última sesión: esta semana
+                  </div>
+                </div>
+              </div>
+              <div class="progress">
+                <span class="progress-label">Nivel de dominio</span>
+                <span class="bar"><i style="width:65%"></i></span>
+                <span class="progress-label">Intermedio</span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="panel" id="proyectos">
+          <div class="panel-head">
+            <h2>Proyectos</h2>
+            <span class="panel-note">3 publicados</span>
+          </div>
+          <div class="panel-body">
+
+            <article class="entry">
+              <div class="entry-top">
+                <div class="capsule cap-proj-1">Proyecto 01<small>WEB</small></div>
+                <div class="entry-meta">
+                  <div>
+                    <h3>Nombre del proyecto</h3>
+                    <p>Explica en una línea qué hace y qué problema resuelve. Añade después las tecnologías que usaste.</p>
+                  </div>
+                  <div class="entry-side">HTML · CSS</div>
+                </div>
+              </div>
+              <div class="entry-foot">
+                <a href="#" target="_blank" rel="noopener">Ver proyecto</a>
+                <a href="#" target="_blank" rel="noopener">Ver código</a>
+              </div>
+            </article>
+
+            <article class="entry">
+              <div class="entry-top">
+                <div class="capsule cap-proj-2">Proyecto 02<small>APP</small></div>
+                <div class="entry-meta">
+                  <div>
+                    <h3>Nombre del proyecto</h3>
+                    <p>Aplicación con registro de usuarios y base de datos. Describe qué parte hiciste tú.</p>
+                  </div>
+                  <div class="entry-side">PHP · MySQL</div>
+                </div>
+              </div>
+              <div class="entry-foot">
+                <a href="#" target="_blank" rel="noopener">Ver proyecto</a>
+                <a href="#" target="_blank" rel="noopener">Ver código</a>
+              </div>
+            </article>
+
+            <article class="entry">
+              <div class="entry-top">
+                <div class="capsule cap-proj-3">Proyecto 03<small>JAVA</small></div>
+                <div class="entry-meta">
+                  <div>
+                    <h3>Nombre del proyecto</h3>
+                    <p>Programa de escritorio o ejercicio de clase que te salió bien. Cuenta qué aprendiste con él.</p>
+                  </div>
+                  <div class="entry-side">Java</div>
+                </div>
+              </div>
+              <div class="entry-foot">
+                <a href="#" target="_blank" rel="noopener">Ver proyecto</a>
+                <a href="#" target="_blank" rel="noopener">Ver código</a>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+      </div>
+
+      <aside>
+
+        <div class="side-block now">
+          <h3>Aprendiendo ahora</h3>
+          <p>JavaScript y consumo de APIs</p>
+        </div>
+
+        <div class="side-block">
+          <h4 class="side-title">Insignias <em>6</em></h4>
+          <div class="badges">
+            <span class="badge">Git</span>
+            <span class="badge">MySQL</span>
+            <span class="badge">Figma</span>
+            <span class="badge">Responsive</span>
+            <span class="badge">Inglés B2</span>
+            <span class="badge">Trabajo en equipo</span>
+          </div>
+        </div>
+
+        <div class="side-block" id="contacto">
+          <h4 class="side-title">Contacto</h4>
+          <ul class="contact-list">
+            <li><a href="mailto:tucorreo@ejemplo.com">Correo <span>tucorreo@ejemplo.com</span></a></li>
+            <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub <span>@usuario</span></a></li>
+            <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn <span>/in/usuario</span></a></li>
+            <li><a href="tel:+34600000000">Teléfono <span>600 00 00 00</span></a></li>
+            <li><a href="#">Descargar CV <span>PDF</span></a></li>
+          </ul>
+        </div>
+
+        <div class="side-block">
+          <h4 class="side-title">Ubicación</h4>
+          <p style="margin:0;font-size:14px;color:#c3d0da;">Madrid, España<br><span style="color:#8f98a0;font-size:13px;">Presencial, híbrido o remoto</span></p>
+        </div>
+
+      </aside>
+    </div>
+
+    <p class="foot">Portfolio personal. Diseño inspirado en los perfiles de Steam, sin relación con Valve Corporation.</p>
+
+  </main>
+</div>
+</body>
+</html>
