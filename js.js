@@ -1,5 +1,3 @@
-document.documentElement.classList.add('js');
-
 /* ===== Horas semanales =====
    Fecha desde la que se suman las horas semanales.
    Cada semana se añaden las horas de data-weekly de cada tecnología. */
@@ -200,19 +198,41 @@ document.addEventListener('keydown', e => {
 });
 
 /* ===== Aparición de bloques al hacer scroll ===== */
-const bloques = document.querySelectorAll('.reveal');
+function iniciarAnimaciones() {
+  const bloques = document.querySelectorAll('.reveal');
 
-if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-  bloques.forEach(b => observer.observe(b));
+    bloques.forEach(b => observer.observe(b));
+  } else {
+    bloques.forEach(b => b.classList.add('is-visible'));
+  }
+}
+
+/* ===== Animación de entrada ===== */
+const intro = document.getElementById('intro');
+const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let introVista = false;
+try { introVista = sessionStorage.getItem('portfolio-intro') === '1'; } catch (e) {}
+
+if (!intro || sinMovimiento || introVista) {
+  if (intro) intro.remove();
+  iniciarAnimaciones();
 } else {
-  bloques.forEach(b => b.classList.add('is-visible'));
+  document.body.classList.add('intro-on');
+  setTimeout(() => {
+    intro.classList.add('hide');
+    document.body.classList.remove('intro-on');
+    iniciarAnimaciones();
+    try { sessionStorage.setItem('portfolio-intro', '1'); } catch (e) {}
+    setTimeout(() => intro.remove(), 600);
+  }, 1300);
 }

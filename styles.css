@@ -568,6 +568,84 @@ a:focus-visible,button:focus-visible{
 }
 .js .reveal.is-visible{opacity:1;transform:none;}
 
+/* ===== Animación de entrada ===== */
+.intro{display:none;}
+.js .intro{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#171a21;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  transition:opacity .5s ease,visibility .5s;
+}
+.intro.hide{opacity:0;visibility:hidden;}
+
+.intro-logo{
+  font-family:"Barlow Condensed",Arial,sans-serif;
+  font-size:clamp(34px,8vw,56px);
+  font-weight:600;
+  letter-spacing:.2em;
+  color:#dfe3e6;
+  animation:introLogo .7s ease both;
+}
+.intro-logo span{color:#66c0f4;}
+
+.intro-bar{
+  width:min(240px,60vw);
+  height:3px;
+  background:rgba(255,255,255,.1);
+  border-radius:3px;
+  overflow:hidden;
+}
+.intro-bar i{
+  display:block;
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#417a9b,#66c0f4);
+  animation:introBar .9s ease .2s forwards;
+}
+.intro-name{
+  margin:0;
+  color:#8f98a0;
+  font-size:14px;
+  letter-spacing:.08em;
+  animation:introFade .6s ease .35s both;
+}
+
+@keyframes introLogo{
+  from{opacity:0;letter-spacing:.5em;}
+  to{opacity:1;letter-spacing:.2em;}
+}
+@keyframes introBar{to{width:100%;}}
+@keyframes introFade{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:none;}
+}
+
+/* La barra superior espera a que termine la intro */
+.intro-on .wordmark,
+.intro-on .topnav a,
+.intro-on .top-actions{animation-play-state:paused;}
+
+/* La cabecera entra por partes */
+.js .profile-head.reveal{opacity:1;transform:none;}
+.js .profile-head .display-name,
+.js .profile-head .handle,
+.js .profile-head .tagline,
+.js .profile-head .level-col{
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.js .profile-head.is-visible .display-name{opacity:1;transform:none;transition-delay:.05s;}
+.js .profile-head.is-visible .handle{opacity:1;transform:none;transition-delay:.15s;}
+.js .profile-head.is-visible .tagline{opacity:1;transform:none;transition-delay:.25s;}
+.js .profile-head.is-visible .level-col{opacity:1;transform:none;transition-delay:.35s;}
+
 /* ===== Tablet ===== */
 @media (max-width:880px){
   .profile-head,.columns{grid-template-columns:minmax(0,1fr);gap:22px;}
@@ -592,4 +670,9 @@ a:focus-visible,button:focus-visible{
   .js .reveal{transform:none;transition:opacity .2s;}
   .badge,.badge::after{transition:none !important;}
   .badge:hover{transform:none;}
+  .js .intro{display:none;}
+  .js .profile-head .display-name,
+  .js .profile-head .handle,
+  .js .profile-head .tagline,
+  .js .profile-head .level-col{transform:none;}
 }
