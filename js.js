@@ -1,241 +1,357 @@
-/* ===== Horas semanales =====
-   Fecha desde la que se suman las horas semanales.
-   Cada semana se añaden las horas de data-weekly de cada tecnología. */
-const FECHA_INICIO = new Date('2026-09-21T00:00:00');
-const SEMANA_MS = 7 * 24 * 60 * 60 * 1000;
-const semanas = Math.max(0, Math.floor((Date.now() - FECHA_INICIO) / SEMANA_MS));
-
-/* ===== Textos en inglés ===== */
-const EN = {
-  nav_about: 'About me',
-  nav_edu: 'Education',
-  nav_tech: 'Skills',
-  nav_projects: 'Projects',
-  nav_contact: 'Contact',
-  handle: 'Web application developer · Madrid, Spain',
-  tagline: 'Microcomputer Systems and Networks technician and Web Application Development student. I design interfaces and build what runs behind them.',
-  service_title: 'Vocational degrees',
-  service_sub: '4,000 h of official training',
-  pop_daw: 'Higher Degree · 2024 - Present',
-  pop_smr: 'Intermediate Degree · 2022 - 2024',
-  github_btn: 'View my GitHub',
-  about_title: 'About me',
-  about_p1: "I'm Pablo and I'm studying the Higher Vocational Degree in Web Application Development in Madrid. I got into IT through the Intermediate Degree in Microcomputer Systems and Networks, where I learned how computers, networks and operating systems work on the inside.",
-  about_p2: 'What drew me to web development was web design and the features you can build with JavaScript: designing clear, easy to use interfaces, and programming the features that make a web application respond to what each user needs, from a well validated form to the logic running on the server.',
-  about_p3: "I've been developing and practising web applications for 3 years. I'm currently going deeper into PHP and JavaScript and working with frameworks such as Angular and Bootstrap. I'm responsible, organised and I enjoy working as part of a team.",
-  exp_title: 'Experience',
-  exp_note: '3 months',
-  exp_desc: 'Building and maintaining websites with WordPress, preparing reports and solving incidents, working as part of a team.',
-  status_now: 'In progress',
-  status_done: 'Completed',
-  edu_title: 'Education',
-  edu_note: '2 vocational degrees',
-  edu_hours: '2,000 h',
-  edu_daw_level: 'HIGHER DEGREE',
-  edu_daw: 'Web Application Development',
-  edu_daw_desc: 'Programming, databases, client and server side development, interface design and application deployment.',
-  edu_daw_date: '2024 - Present',
-  edu_smr_level: 'INTERMEDIATE',
-  edu_smr: 'Microcomputer Systems and Networks',
-  edu_smr_desc: 'IES El Cañaveral. Hardware assembly and maintenance, operating systems, local networks, network services and IT security.',
-  tech_title: 'Languages and technologies',
-  tech_note: 'Hours based on degree modules',
-  cap_markup: 'MARKUP',
-  cap_styles: 'STYLES',
-  cap_client: 'CLIENT',
-  cap_backend: 'BACKEND',
-  cap_server: 'SERVER',
-  html_desc: 'Semantic structure, forms, accessibility and web standards.',
-  html_mod: 'Module: Markup languages and information management systems',
-  css_desc: 'Flexbox, Grid, responsive design, animations and variables.',
-  css_mod: 'Module: Web interface design',
-  js_desc: 'DOM manipulation, events, form validation and asynchronous requests.',
-  js_mod: 'Module: Client side web development',
-  java_desc: 'Object oriented programming, collections, exceptions and database connections.',
-  java_mod: 'Module: Programming',
-  php_desc: 'Applications with MySQL, sessions, forms and CRUD operations.',
-  php_mod: 'Module: Server side web development',
-  ng_title: 'Angular, Bootstrap and frameworks',
-  ng_desc: 'Components, routing and services in Angular; fast responsive layouts with Bootstrap.',
-  ng_mod: 'Currently studying',
-  mastery: 'Skill level',
-  lvl_adv: 'Advanced',
-  lvl_int: 'Intermediate',
-  lvl_learn: 'Learning',
-  proj_title: 'Projects',
-  proj_note: '1 project',
-  p1_cap: 'WEB GAME',
-  p1_desc: 'Geeky trivia game in the style of "Who Wants to Be a Millionaire?": 15 levels, a prize ladder, 50:50, audience and phone lifelines with a countdown, lifeline recovery and suspense sounds.',
-  p1_status: 'Playable online',
-  p_play: 'Play now',
-  see_code: 'View code',
-  now_title: 'Currently learning',
-  and: 'and',
-  badges_title: 'Badges',
-  b_sec: 'Basic cybersecurity',
-  b_team: 'Teamwork',
-  b_org: 'Organisation',
-  contact_title: 'Contact',
-  c_mail: 'Email',
-  c_phone: 'Phone',
-  c_cv: 'Download CV',
-  langs_title: 'Languages',
-  l_es: 'Spanish',
-  l_es_lvl: 'Native',
-  l_en: 'English',
-  l_en_lvl: 'Intermediate',
-  loc_title: 'Location',
-  loc_sub: 'On site, hybrid or remote',
-  footer: 'Designed by'
+const faseMessages = {
+    5: {
+        title: "🎁 ¡FASE 1 COMPLETADA!",
+        desc: "¡Espectacular! Has respondido correctamente las primeras 5 preguntas de calentamiento.<br><br><span style='color: #ffd700; font-size: 1.5em; font-weight: bold;'>¡HAS GANADO EL REGALO Nº 1!</span><br><br>Prepárate, que ahora sube el nivel."
+    },
+    10: {
+        title: "🎁 ¡FASE 2 SUPERADA!",
+        desc: "¡No te frena nadie! Llevas 10 aciertos consecutivos esquivando trampas.<br><br><span style='color: #ffd700; font-size: 1.5em; font-weight: bold;'>¡HAS GANADO EL REGALO Nº 2!</span><br><br>Entramos oficialmente en la zona de preguntas nivel DIOS."
+    },
+    15: {
+        title: "👑 ¡EL REY DE LOS FRIKIS!",
+        desc: "¡HISTÓRICO! Te has pasado el juego completo sin pestañear.<br><br><span style='color: #ffd700; font-size: 1.8em; font-weight: bold;'>¡HAS GANADO EL REGALO Nº 3!</span><br><br>Has demostrado un Lore insuperable."
+    }
 };
 
-/* Guarda los textos originales en español */
-const ES = {};
-document.querySelectorAll('[data-i18n]').forEach(el => {
-  ES[el.dataset.i18n] = el.innerHTML;
-});
+const prizes = ["🥚", "🧱", "🐺", "🌾", "", "🌊", "👑", "", "🇰🇵", "", "🐎", "🎬", "🧬", "📓", ""];
 
-let idioma = 'es';
-let tema = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+const mainQuestions = [
+    { q: "¿Cuál de estos streamers es conocido por usar siempre una máscara de búho?", options: ["Willyrex", "Fargan", "Vegetta777", "Alexby"], correct: 1 },
+    { q: "¿Cómo se llama el mineral más resistente de Minecraft (añadido en versiones recientes)?", options: ["Diamante", "Netherite", "Obsidiana", "Bedrock"], correct: 1 },
+    { q: "¿Cómo se llama la hija de Ethan Winters en Resident Evil Village?", options: ["Sarah", "Ellie", "Rose", "Zara"], correct: 2 },
+    { q: "¿Qué objeto necesitas en Minecraft para domesticar a un lobo?", options: ["Carne", "Hueso", "Pescado", "Trigo"], correct: 1 },
+    { q: "¿Cuál es el primer cultivo que te dan al empezar en Stardew Valley?", options: ["Chirivía", "Coliflor", "Patata", "Fresa"], correct: 0 },
 
-/* ===== Horas ===== */
-function pintarHoras() {
-  const locale = idioma === 'es' ? 'es-ES' : 'en-GB';
+    { q: "En el anime Attack on Titan (Shingeki no Kyojin), ¿cómo se llama el Titán que hereda Eren Jäger de su padre?", options: ["Titán Colosal", "Titán de Ataque", "Titán Acorazado", "Titán Hembra"], correct: 1 },
+    { q: "¿Cuál es el título del segundo libro de la trilogía de 'El problema de los tres cuerpos' de Cixin Liu?", options: ["El fin de la muerte", "La redención del tiempo", "El bosque oscuro", "La esfera luminosa"], correct: 2 },
+    { q: "En Neon Genesis Evangelion, ¿cómo se llama el mecha gigante de color morado que pilota Shinji Ikari?", options: ["EVA-00", "EVA-02", "EVA-01", "EVA-05"], correct: 2 },
+    { q: "¿Cuál es la primera y más importante de las Tres Leyes de la Robótica de Isaac Asimov?", options: ["Un robot debe proteger su propia existencia", "Un robot debe obedecer las órdenes humanas", "Un robot no puede hacer daño a un ser humano o permitir que sufra daño", "Un robot no puede poseer sentimientos"], correct: 2 },
+    { q: "En BioShock, ¿cómo se llama la ciudad submarina donde ocurre el juego?", options: ["Columbia", "Rapture", "Atlantis", "Arkham"], correct: 1 },
 
-  document.querySelectorAll('.lang').forEach(entry => {
-    const base = Number(entry.dataset.base) || 0;
-    const semanal = Number(entry.dataset.weekly) || 0;
-    const total = base + semanal * semanas;
+    { q: "En El Señor de los Anillos, ¿cómo se llama el poni que acompaña a los Hobbits al principio de su viaje?", options: ["Sombra Gris", "Bill", "Roach", "Brego"], correct: 1 },
+    { q: "¿Qué director de cine británico dirigió las películas 'Origen', 'Interstellar' y la trilogía de 'Batman El Caballero Oscuro'?", options: ["Steven Spielberg", "Quentin Tarantino", "Christopher Nolan", "Martin Scorsese"], correct: 2 },
+    { q: "En BioShock, ¿cuál es el nombre de la corporación que creó a las Little Sisters?", options: ["Aperture Science", "Fontaine Futuristics", "Umbrella Corp", "Vault-Tec"], correct: 1 },
+    { q: "En el anime Death Note, ¿cómo se llama el Shinigami (dios de la muerte) que acompaña a Light Yagami?", options: ["Rem", "L", "Ryuk", "Near"], correct: 2 },
+    { q: "PREGUNTA FINAL: ¿Cómo se llama el edificio del pueblo de Stardew Valley que debes restaurar?", options: ["Ayuntamiento", "Centro Cívico", "Almacén de Pierre", "JojaMart"], correct: 1 }
+];
 
-    entry.querySelector('.hours').textContent =
-      total.toLocaleString(locale) + (idioma === 'es' ? ' h registradas' : ' h logged');
+const backupQuestions = [
+    { q: "🔄 PREGUNTA DE RESERVA: En el universo de Star Wars, ¿en qué planeta se encuentra el templo oculto de los Sith donde reside el Emperador Palpatine en el Episodio IX?", options: ["Mustafar", "Exegol", "Korriban", "Moraband"], correct: 1 },
+    { q: "🔄 PREGUNTA DE RESERVA: En el juego Bloodborne, ¿cómo se llama el primer cazador que actúa como mentor en el Sueño del Cazador?", options: ["Gehrman", "Ludwig", "Laurence", "Gascoigne"], correct: 0 },
+    { q: "🔄 PREGUNTA DE RESERVA: En la saga Halo, ¿cómo se llama la inteligencia artificial compañera del Jefe Maestro antes de ser corrompida por la rampancia?", options: ["Serina", "Cortana", "Isabel", "The Weapon"], correct: 1 },
+    { q: "🔄 PREGUNTA DE RESERVA: ¿Cuál es el verdadero nombre del héroe 'Link' en la entrega clásica The Legend of Zelda: Ocarina of Time?", options: ["Link del Destino", "Héroe del Tiempo", "Solo Link", "Zelda"], correct: 2 }
+];
 
-    let estado;
-    if (semanal > 0) {
-      estado = '+' + semanal + (idioma === 'es' ? ' h por semana' : ' h per week');
-    } else {
-      estado = idioma === 'es' ? entry.dataset.statusEs : entry.dataset.statusEn;
+let currentLevel = 0;
+let lifelinesUsed = { "ll-50": false, "ll-pub": false, "ll-tel": false, "ll-pablito": false };
+let activeQuestion = {};
+let timers = [];
+let markedIndex = null;
+let countdownInterval = null;
+let isPablitoUnlocked = false;
+let eliminated = [];
+let gameOver = false;
+let answering = false;
+
+const suspenseAudio = document.getElementById('snd-suspense');
+const correctAudio = document.getElementById('snd-correct');
+const wrongAudio = document.getElementById('snd-wrong');
+
+function init() {
+    renderLadder();
+    activeQuestion = {...mainQuestions[currentLevel]};
+}
+
+function startGameNow() {
+    document.getElementById('welcome-screen').style.display = 'none';
+    loadQuestion();
+}
+
+function renderLadder() {
+    const ladder = document.getElementById('prize-ladder');
+    ladder.innerHTML = '';
+    prizes.forEach((p, i) => {
+        const div = document.createElement('div');
+        let specialLabel = "";
+        if ((i + 1) === 5) specialLabel = " 🎁 REGALO 1";
+        if ((i + 1) === 8) specialLabel = " 🔄 COMODÍN";
+        if ((i + 1) === 10) specialLabel = " 🎁 REGALO 2";
+        if ((i + 1) === 11) specialLabel = " 🧙‍♂️ DESBLOQUEO";
+        if ((i + 1) === 15) specialLabel = " 👑 REGALO 3";
+
+        div.className = `step ${i === currentLevel ? 'active' : ''} ${(i + 1) % 5 === 0 ? 'safe' : ''}`;
+        div.innerHTML = `<span>Nivel ${i + 1}</span> <span>${p}${specialLabel}</span>`;
+        ladder.appendChild(div);
+    });
+
+    const btnPablito = document.getElementById('ll-pablito');
+    if (currentLevel >= 10 && !lifelinesUsed["ll-pablito"]) {
+        isPablitoUnlocked = true;
+        btnPablito.classList.remove('locked');
+        btnPablito.innerHTML = "🧙‍♂️ Pablito";
+    } else if (!isPablitoUnlocked) {
+        btnPablito.classList.add('locked');
+        btnPablito.innerHTML = "🔒 Pablito (Nvl 11)";
     }
-    entry.querySelector('.weekly').textContent = estado || '';
-  });
 }
 
-/* ===== Modo claro / oscuro ===== */
-function pintarTema() {
-  const label = document.getElementById('themeLabel');
-  const boton = document.getElementById('themeToggle');
-  let texto;
-  if (tema === 'light') {
-    texto = idioma === 'es' ? 'Modo oscuro' : 'Dark mode';
-  } else {
-    texto = idioma === 'es' ? 'Modo claro' : 'Light mode';
-  }
-  label.textContent = texto;
-  boton.setAttribute('aria-label', texto);
+function loadQuestion() {
+    timers.forEach(t => clearTimeout(t));
+    timers = [];
+    markedIndex = null;
+    eliminated = [];
+    answering = false;
+
+    suspenseAudio.pause();
+    suspenseAudio.currentTime = 0;
+
+    for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`btn${i}`);
+        btn.style.opacity = "0";
+        btn.disabled = true;
+        btn.classList.remove('marked');
+        btn.style.background = "rgba(0,0,0,0.6)";
+        document.getElementById(`span${i}`).innerText = activeQuestion.options[i];
+    }
+
+    document.getElementById('q-text').innerText = `${currentLevel + 1}. ${activeQuestion.q}`;
+
+    if (currentLevel === 7) {
+        checkComodinRecovery();
+        return;
+    }
+
+    if (currentLevel >= 10) {
+        document.getElementById('answers-grid-id').style.visibility = 'hidden';
+        document.getElementById('reveal-container').style.display = 'flex';
+        return;
+    }
+
+    document.getElementById('answers-grid-id').style.visibility = 'visible';
+    document.getElementById('reveal-container').style.display = 'none';
+    triggerButtonsFadeIn();
 }
 
-function cambiarTema(nuevo) {
-  tema = nuevo;
-  document.documentElement.dataset.theme = tema;
-  pintarTema();
-  try { localStorage.setItem('portfolio-tema', tema); } catch (e) {}
+function revealAnswersNow() {
+    document.getElementById('reveal-container').style.display = 'none';
+    document.getElementById('answers-grid-id').style.visibility = 'visible';
+    triggerButtonsFadeIn();
 }
 
-document.getElementById('themeToggle').addEventListener('click', () => {
-  cambiarTema(tema === 'light' ? 'dark' : 'light');
-});
-
-/* ===== Idioma ===== */
-function cambiarIdioma(nuevo) {
-  idioma = nuevo;
-  const dic = idioma === 'es' ? ES : EN;
-
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const texto = dic[el.dataset.i18n];
-    if (texto !== undefined) el.innerHTML = texto;
-  });
-
-  document.documentElement.lang = idioma;
-  document.getElementById('langLabel').textContent = idioma === 'es' ? 'English' : 'Español';
-  document.getElementById('langToggle').setAttribute('aria-label',
-    idioma === 'es' ? 'Translate to English' : 'Traducir al español');
-
-  pintarHoras();
-  pintarTema();
-
-  try { localStorage.setItem('portfolio-idioma', idioma); } catch (e) {}
+function changeQuestionNow() {
+    if (backupQuestions.length === 0) {
+        alert("¡Has agotado las preguntas del banco de reserva del Mago!");
+        return;
+    }
+    const randomIndex = Math.floor(Math.random() * backupQuestions.length);
+    activeQuestion = backupQuestions.splice(randomIndex, 1)[0];
+    loadQuestion();
 }
 
-document.getElementById('langToggle').addEventListener('click', () => {
-  cambiarIdioma(idioma === 'es' ? 'en' : 'es');
-});
+function triggerButtonsFadeIn() {
+    const initialDelay = 5000;
+    const stepDelay = 2500;
 
-let guardado = null;
-try { guardado = localStorage.getItem('portfolio-idioma'); } catch (e) {}
-cambiarIdioma(guardado === 'en' ? 'en' : 'es');
+    for (let i = 0; i < 4; i++) {
+        const t = setTimeout(() => {
+            const btn = document.getElementById(`btn${i}`);
 
-/* ===== Desplegable de ciclos formativos ===== */
-const cyclesBtn = document.getElementById('cyclesBtn');
-const cyclesPop = document.getElementById('cyclesPop');
+            if (eliminated.includes(i)) {
+                btn.style.opacity = "0.2";
+                btn.disabled = true;
+            } else {
+                btn.style.opacity = "1";
+                btn.disabled = false;
+            }
 
-function abrirCiclos(abrir) {
-  cyclesPop.classList.toggle('open', abrir);
-  cyclesBtn.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+            if (i === 0) {
+                suspenseAudio.play().catch(() => console.log("Audio esperando interacción"));
+            }
+        }, initialDelay + (i * stepDelay));
+        timers.push(t);
+    }
 }
 
-cyclesBtn.addEventListener('click', e => {
-  e.stopPropagation();
-  abrirCiclos(!cyclesPop.classList.contains('open'));
-});
+function checkComodinRecovery() {
+    suspenseAudio.pause();
+    const container = document.getElementById('recovery-options-container');
+    container.innerHTML = '';
 
-cyclesPop.addEventListener('click', e => {
-  if (e.target.closest('a')) abrirCiclos(false);
-});
+    const spent = [];
+    if (lifelinesUsed["ll-50"]) spent.push({ id: "ll-50", name: "50:50" });
+    if (lifelinesUsed["ll-pub"]) spent.push({ id: "ll-pub", name: "👥 Público" });
+    if (lifelinesUsed["ll-tel"]) spent.push({ id: "ll-tel", name: "📞 Llamada" });
 
-document.addEventListener('click', e => {
-  if (!cyclesPop.contains(e.target) && e.target !== cyclesBtn) abrirCiclos(false);
-});
+    if (spent.length === 0) {
+        container.innerHTML = `<p style="font-size: 1.2em; color: #aaa;">¡Madre mía, no has gastado ningún comodín! No tienes nada que recuperar. ¡Vas sobrado!</p>
+                               <button class="recovery-btn" onclick="closeRecoveryModal()">CONTINUAR JUEGO</button>`;
+    } else {
+        spent.forEach(item => {
+            const btn = document.createElement('button');
+            btn.className = 'recovery-btn';
+            btn.innerText = `Recuperar ${item.name}`;
+            btn.onclick = () => restoreLifeline(item.id);
+            container.appendChild(btn);
+        });
+    }
+    document.getElementById('modal-recovery').style.display = 'flex';
+}
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') abrirCiclos(false);
-});
+function restoreLifeline(id) {
+    lifelinesUsed[id] = false;
+    document.getElementById(id).classList.remove('used');
+    closeRecoveryModal();
+}
 
-/* ===== Aparición de bloques al hacer scroll ===== */
-function iniciarAnimaciones() {
-  const bloques = document.querySelectorAll('.reveal');
+function closeRecoveryModal() {
+    document.getElementById('modal-recovery').style.display = 'none';
+    document.getElementById('answers-grid-id').style.visibility = 'visible';
+    triggerButtonsFadeIn();
+}
 
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+function handleSelect(idx) {
+    if (answering || eliminated.includes(idx)) return;
+
+    if (markedIndex === idx) {
+        checkAnswer(idx);
+    } else {
+        if (markedIndex !== null) {
+            document.getElementById(`btn${markedIndex}`).classList.remove('marked');
         }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-    bloques.forEach(b => observer.observe(b));
-  } else {
-    bloques.forEach(b => b.classList.add('is-visible'));
-  }
+        markedIndex = idx;
+        document.getElementById(`btn${idx}`).classList.add('marked');
+    }
 }
 
-/* ===== Animación de entrada ===== */
-const intro = document.getElementById('intro');
-const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-let introVista = false;
-try { introVista = sessionStorage.getItem('portfolio-intro') === '1'; } catch (e) {}
+function checkAnswer(idx) {
+    answering = true;
+    suspenseAudio.pause();
 
-if (!intro || sinMovimiento || introVista) {
-  if (intro) intro.remove();
-  iniciarAnimaciones();
-} else {
-  document.body.classList.add('intro-on');
-  setTimeout(() => {
-    intro.classList.add('hide');
-    document.body.classList.remove('intro-on');
-    iniciarAnimaciones();
-    try { sessionStorage.setItem('portfolio-intro', '1'); } catch (e) {}
-    setTimeout(() => intro.remove(), 600);
-  }, 1300);
+    for (let i = 0; i < 4; i++) document.getElementById(`btn${i}`).disabled = true;
+
+    if (idx === activeQuestion.correct) {
+        correctAudio.play().catch(() => {});
+        currentLevel++;
+        if (faseMessages[currentLevel]) {
+            showModal(faseMessages[currentLevel].title, faseMessages[currentLevel].desc);
+        } else {
+            nextStep();
+        }
+    } else {
+        gameOver = true;
+        wrongAudio.play().catch(() => {});
+        const letra = String.fromCharCode(65 + activeQuestion.correct);
+        showModal("💀 FIN DE LA PARTIDA",
+            `¡Ohh! Has fallado la pregunta friki.<br>La respuesta correcta era la <b>${letra}</b>.<br><br>Reiniciando el panel...`);
+        document.getElementById('modal-continue-btn').style.display = 'none';
+        setTimeout(() => location.reload(), 4000);
+    }
 }
+
+function nextStep() {
+    if (currentLevel < 15) {
+        activeQuestion = {...mainQuestions[currentLevel]};
+        renderLadder();
+        loadQuestion();
+    }
+}
+
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+    if (gameOver || currentLevel >= 15) {
+        location.reload();
+    } else {
+        nextStep();
+    }
+}
+
+function showModal(title, desc) {
+    document.getElementById('modal-title').innerText = title;
+    document.getElementById('modal-desc').innerHTML = desc;
+    document.getElementById('modal-continue-btn').style.display = '';
+    document.getElementById('modal').style.display = 'flex';
+}
+
+function startTimeLifeline(type) {
+    const key = type === 'Público' ? 'll-pub' : 'll-tel';
+    if (lifelinesUsed[key] || answering) return;
+
+    markUsed(key);
+    suspenseAudio.pause();
+
+    const modalCountdown = document.getElementById('modal-countdown');
+    const titleDisplay = document.getElementById('countdown-title');
+    const descDisplay = document.getElementById('countdown-desc');
+    const timerDisplay = document.getElementById('timer-display');
+
+    if (type === 'Público') {
+        titleDisplay.innerText = "📢 COMODÍN DEL PÚBLICO";
+        descDisplay.innerText = "¡El tiempo vuela! Pregunta al chat, abre WhatsApp o busca a contrarreloj.";
+    } else {
+        titleDisplay.innerText = "📞 COMODÍN DE LA LLAMADA";
+        descDisplay.innerText = "¡Llamada en curso! Tienes un minuto exacto para que tu contacto te dé la respuesta.";
+    }
+
+    let timeLeft = 60;
+    timerDisplay.innerText = timeLeft;
+    timerDisplay.classList.remove('danger');
+    modalCountdown.style.display = 'flex';
+
+    clearInterval(countdownInterval);
+    countdownInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerText = timeLeft;
+
+        if (timeLeft <= 15) timerDisplay.classList.add('danger');
+
+        if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+            timerDisplay.innerText = "¡TIEMPO! ⏰";
+        }
+    }, 1000);
+}
+
+function closeCountdownModal() {
+    clearInterval(countdownInterval);
+    document.getElementById('modal-countdown').style.display = 'none';
+
+    const primeraVisible = document.getElementById('btn0').style.opacity !== "0";
+    if (markedIndex === null && primeraVisible && !answering) {
+        suspenseAudio.play().catch(e => console.log(e));
+    }
+}
+
+function use5050() {
+    if (lifelinesUsed["ll-50"] || answering) return;
+    const correctIdx = activeQuestion.correct;
+    const indices = [0, 1, 2, 3].filter(i => i !== correctIdx);
+    indices.sort(() => Math.random() - 0.5);
+
+    eliminated = indices.slice(0, 2);
+    eliminated.forEach(i => {
+        const btn = document.getElementById(`btn${i}`);
+        if (btn.style.opacity !== "0") btn.style.opacity = "0.2";
+        btn.disabled = true;
+        if (markedIndex === i) {
+            btn.classList.remove('marked');
+            markedIndex = null;
+        }
+    });
+    markUsed("ll-50");
+}
+
+function usePablito() {
+    if (!isPablitoUnlocked || lifelinesUsed["ll-pablito"] || answering) return;
+    alert("Pablito el Maguito murmura entre dientes... la correcta debería ser la " + String.fromCharCode(65 + activeQuestion.correct));
+    markUsed("ll-pablito");
+}
+
+function markUsed(id) {
+    lifelinesUsed[id] = true;
+    document.getElementById(id).classList.add('used');
+    if (id === "ll-pablito") {
+        document.getElementById(id).innerHTML = "🧙‍♂️ Pablito (Gastado)";
+    }
+}
+
+init();
