@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 
@@ -235,7 +235,7 @@
                 <div class="entry-meta">
                   <div>
                     <h3>JavaScript</h3>
-                    <p data-i18n="js_desc">Manipulación del DOM, eventos, validación de formularios y peticiones asíncronas.</p>
+                    <p data-i18n="js_desc">Manipulación del DOM, eventos, validación de formularios y peticiones asíncronas a APIs.</p>
                     <p class="module" data-i18n="js_mod">Módulo: Desarrollo web en entorno cliente</p>
                   </div>
                   <div class="entry-side">
@@ -324,9 +324,29 @@
         <section class="panel reveal" id="proyectos">
           <div class="panel-head">
             <h2 data-i18n="proj_title">Proyectos</h2>
-            <span class="panel-note" data-i18n="proj_note">1 proyecto</span>
+            <span class="panel-note" data-i18n="proj_note">2 proyectos</span>
           </div>
           <div class="panel-body">
+
+            <article class="entry">
+              <div class="entry-top">
+                <div class="capsule cap-shop">RRSHOP<small data-i18n="p2_cap">TIENDA WEB</small></div>
+                <div class="entry-meta">
+                  <div>
+                    <h3>RRShop</h3>
+                    <p data-i18n="p2_desc">Tienda de videojuegos que compara precios reales entre tiendas y abre cada juego en la que tiene mejor oferta. Incluye buscador, carrito, biblioteca con huecos limitados, vales y sobres. Consume las APIs de CheapShark, RAWG y Frankfurter para precios, datos de los juegos y conversión a euros.</p>
+                  </div>
+                  <div class="entry-side">
+                    HTML · CSS · JS · APIs<br>
+                    <span class="live" data-i18n="p2_status">Online en Vercel</span>
+                  </div>
+                </div>
+              </div>
+              <div class="entry-foot">
+                <a href="https://rrshop.vercel.app" target="_blank" rel="noopener" data-i18n="p_visit">Ver proyecto</a>
+                <a href="https://github.com/titohalo3-cpu" target="_blank" rel="noopener" data-i18n="see_code">Ver código</a>
+              </div>
+            </article>
 
             <article class="entry">
               <div class="entry-top">
@@ -361,13 +381,14 @@
         </div>
 
         <div class="side-block reveal">
-          <h4 class="side-title"><span data-i18n="badges_title">Insignias</span> <em>9</em></h4>
+          <h4 class="side-title"><span data-i18n="badges_title">Insignias</span> <em>10</em></h4>
           <div class="badges">
             <span class="badge badge-tech">Angular</span>
             <span class="badge badge-tech">PHP</span>
             <span class="badge badge-tech">Java</span>
             <span class="badge badge-tech">MySQL</span>
             <span class="badge badge-tech">Bootstrap</span>
+            <span class="badge badge-tech">APIs REST</span>
             <span class="badge badge-tech">Git</span>
             <span class="badge badge-skill" data-i18n="b_sec">Ciberseguridad básica</span>
             <span class="badge badge-skill" data-i18n="b_team">Trabajo en equipo</span>
@@ -410,6 +431,6 @@
   </main>
 </div>
 
-<script src="js.js"></script>
+<script src="js.js?v=3"></script>
 </body>
 </html>
