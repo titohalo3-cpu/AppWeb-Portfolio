@@ -1,4 +1,3 @@
-/* ===== Animación de entrada (va primero para que nunca se quede bloqueada) ===== */
 const intro = document.getElementById('intro');
 const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let introVista = false;
@@ -37,14 +36,10 @@ if (!intro || sinMovimiento || introVista) {
   }, 1300);
 }
 
-/* ===== Horas semanales =====
-   Fecha desde la que se suman las horas semanales.
-   Cada semana se añaden las horas de data-weekly de cada tecnología. */
 const FECHA_INICIO = new Date('2026-09-21T00:00:00');
 const SEMANA_MS = 7 * 24 * 60 * 60 * 1000;
 const semanas = Math.max(0, Math.floor((Date.now() - FECHA_INICIO) / SEMANA_MS));
 
-/* ===== Textos en inglés ===== */
 const EN = {
   nav_about: 'About me',
   nav_edu: 'Education',
@@ -102,7 +97,10 @@ const EN = {
   lvl_int: 'Intermediate',
   lvl_learn: 'Learning',
   proj_title: 'Projects',
-  proj_note: '2 projects',
+  proj_note: '3 projects',
+  p3_cap: 'WEB APP',
+  p3_desc: 'Killer build manager for Dead by Daylight. You can create and save builds for each killer, search and sort them, filter only the ones that already have builds, roll a random killer and switch the perks between Spanish and English.',
+  p3_status: 'Live on Vercel',
   p2_cap: 'WEB SHOP',
   p2_desc: 'Video game shop that compares real prices across stores and opens each game at the one with the best deal. It includes a search bar, a cart, a library with limited slots, vouchers and card packs. It uses the CheapShark, RAWG and Frankfurter APIs for prices, game data and currency conversion.',
   p2_status: 'Live on Vercel',
@@ -132,7 +130,6 @@ const EN = {
   footer: 'Designed by'
 };
 
-/* Guarda los textos originales en español */
 const ES = {};
 document.querySelectorAll('[data-i18n]').forEach(el => {
   ES[el.dataset.i18n] = el.innerHTML;
@@ -141,7 +138,6 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 let idioma = 'es';
 let tema = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 
-/* ===== Horas ===== */
 function pintarHoras() {
   const locale = idioma === 'es' ? 'es-ES' : 'en-GB';
 
@@ -166,7 +162,6 @@ function pintarHoras() {
   });
 }
 
-/* ===== Modo claro / oscuro ===== */
 const themeBtn = document.getElementById('themeToggle');
 const themeLabel = document.getElementById('themeLabel');
 
@@ -195,7 +190,6 @@ if (themeBtn) {
   });
 }
 
-/* ===== Idioma ===== */
 const langBtn = document.getElementById('langToggle');
 const langLabel = document.getElementById('langLabel');
 
@@ -228,7 +222,6 @@ let guardado = null;
 try { guardado = localStorage.getItem('portfolio-idioma'); } catch (e) {}
 cambiarIdioma(guardado === 'en' ? 'en' : 'es');
 
-/* ===== Desplegable de ciclos formativos ===== */
 const cyclesBtn = document.getElementById('cyclesBtn');
 const cyclesPop = document.getElementById('cyclesPop');
 
