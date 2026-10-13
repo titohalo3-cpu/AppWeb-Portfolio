@@ -1,4 +1,3 @@
-/* ===== Modo claro (por defecto) ===== */
 :root{
   --bg-page:#e8edf2;
   --bd-glow:rgba(102,150,190,.22);
@@ -46,7 +45,6 @@
   --radius:3px;
 }
 
-/* ===== Modo oscuro ===== */
 :root[data-theme="dark"]{
   --bg-page:#1b2838;
   --bd-glow:rgba(86,140,178,.20);
@@ -138,7 +136,6 @@ a:focus-visible,button:focus-visible{
   outline-offset:2px;
 }
 
-/* ===== Barra superior ===== */
 .topbar{
   background:var(--bar);
   border-bottom:1px solid rgba(0,0,0,.4);
@@ -244,7 +241,6 @@ a:focus-visible,button:focus-visible{
   padding:30px 18px 50px;
 }
 
-/* ===== Cabecera ===== */
 .profile-head{
   display:grid;
   grid-template-columns:minmax(0,1fr) 300px;
@@ -295,7 +291,6 @@ a:focus-visible,button:focus-visible{
 .chev{width:20px;height:20px;fill:var(--text-dim);transition:transform .25s ease;}
 .service-box[aria-expanded="true"] .chev{transform:rotate(180deg);}
 
-/* Desplegable de ciclos */
 .cycles-pop{
   position:absolute;
   top:72px;
@@ -352,7 +347,6 @@ a:focus-visible,button:focus-visible{
 .btn-github:hover{color:#fff;filter:brightness(1.12);}
 .btn-github svg{width:17px;height:17px;fill:currentColor;flex:none;}
 
-/* ===== Rejilla ===== */
 .columns{
   display:grid;
   grid-template-columns:minmax(0,1fr) 300px;
@@ -382,10 +376,7 @@ a:focus-visible,button:focus-visible{
 }
 .panel-body > p{margin:0 0 12px;max-width:68ch;}
 .panel-body > p:last-child{margin-bottom:0;}
-.panel-body.empty{text-align:center;padding:28px 14px;}
-.panel-body.empty p{margin:0 auto 8px;color:var(--text-soft);}
 
-/* ===== Filas ===== */
 .entry{
   background:var(--row);
   border:1px solid var(--line);
@@ -426,9 +417,9 @@ a:focus-visible,button:focus-visible{
 .cap-smr{background:linear-gradient(135deg,#4c7a5a,#26432f);}
 .cap-quiz{background:linear-gradient(135deg,#1a1a6e,#020230);color:#ffd700;font-size:20px;}
 .cap-shop{background:linear-gradient(135deg,#1f6f5c,#0e3a30);font-size:20px;}
+.cap-dbd{background:linear-gradient(135deg,#6b1414,#2a0a0a);font-size:20px;}
 .entry-foot{margin-top:10px;display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;}
 
-/* Lenguajes: color propio y hover con contraste invertido */
 .lang .capsule{background:var(--c);color:var(--fg,#fff);}
 .lang-html{--c:#e44d26;--hover-text:#c73a15;}
 .lang-css {--c:#2965f1;--hover-text:#1f55d1;}
@@ -483,7 +474,6 @@ a:focus-visible,button:focus-visible{
   transition:background .25s;
 }
 
-/* ===== Columna derecha ===== */
 .side-block{
   background:var(--panel);
   border:1px solid var(--line);
@@ -505,7 +495,6 @@ a:focus-visible,button:focus-visible{
 }
 .side-title em{font-style:normal;font-size:21px;color:var(--text-dim);}
 
-/* Insignias */
 .badges{display:flex;flex-wrap:wrap;gap:9px;}
 .badge{
   position:relative;
@@ -563,7 +552,6 @@ a:focus-visible,button:focus-visible{
 }
 .foot p{margin:2px 0;}
 
-/* ===== Aparición al hacer scroll ===== */
 .js .reveal{
   opacity:0;
   transform:translateY(16px);
@@ -571,7 +559,6 @@ a:focus-visible,button:focus-visible{
 }
 .js .reveal.is-visible{opacity:1;transform:none;}
 
-/* ===== Animación de entrada ===== */
 .intro{display:none;}
 .js .intro{
   position:fixed;
@@ -631,12 +618,10 @@ a:focus-visible,button:focus-visible{
   to{opacity:1;transform:none;}
 }
 
-/* La barra superior espera a que termine la intro */
 .intro-on .wordmark,
 .intro-on .topnav a,
 .intro-on .top-actions{animation-play-state:paused;}
 
-/* La cabecera entra por partes */
 .js .profile-head.reveal{opacity:1;transform:none;}
 .js .profile-head .display-name,
 .js .profile-head .handle,
@@ -651,13 +636,11 @@ a:focus-visible,button:focus-visible{
 .js .profile-head.is-visible .tagline{opacity:1;transform:none;transition-delay:.25s;}
 .js .profile-head.is-visible .level-col{opacity:1;transform:none;transition-delay:.35s;}
 
-/* ===== Tablet ===== */
 @media (max-width:880px){
   .profile-head,.columns{grid-template-columns:minmax(0,1fr);gap:22px;}
   .level-col{max-width:420px;}
 }
 
-/* ===== Móvil ===== */
 @media (max-width:600px){
   .topbar-inner{gap:12px;padding:10px 14px;flex-wrap:wrap;}
   .topnav{order:3;width:100%;gap:18px;}
